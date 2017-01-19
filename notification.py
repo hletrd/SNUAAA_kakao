@@ -140,7 +140,7 @@ def message():
 
 			#날씨
 			elif '날씨' in nouns:
-				if '철원' in nouns:
+				if '철원' in message:
 					response = json.dumps({"message": {"text": "철원군의 날씨 예보입니다.", "photo": {"url": "http://0101010101.com:8002/_images/seeing-cherwon.png", "width": 1070, "height": 1826}}})
 
 			#프사 시비
