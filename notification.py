@@ -53,9 +53,12 @@ def message():
 			else:
 				last[ukey] = [message]
 
+			#분석
+			if '분석' in nouns:
+				text += "\n\n입력 분석 결과: " + str(morphs) + '\n' + str(nouns)
 
 			#다음 별모임 일자
-			if '별모임' in nouns or '별모임' in morphs:
+			elif '별모임' in nouns or '별모임' in morphs:
 				if '언제' in morphs and '어디' in morphs:
 					text = '다음 별모임은 '
 					before = seminar_parsed[0]
@@ -91,17 +94,17 @@ def message():
 				text = ['니들 거기 꼼짝말고 있어!', '장세동이 바꾸라니깐!', '역적 놈의 새끼들...'][random.randint(0, 2)]
 			
 			#연락처
-			elif '회장' in nouns and '연락처' in nouns:
+			elif '회장' in nouns and ('연락처' in nouns or '번호' in nouns):
 				text = contacts[0]
-			elif '부회장' in nouns and '연락처' in nouns:
+			elif '부회장' in nouns and ('연락처' in nouns or '번호' in nouns):
 				text = contacts[1]
-			elif '총무' in nouns and '연락처' in nouns:
+			elif '총무' in nouns and ('연락처' in nouns or '번호' in nouns):
 				text = contacts[2]
-			elif '회계' in nouns and '연락처' in nouns:
+			elif '회계' in nouns and ('연락처' in nouns or '번호' in nouns):
 				text = contacts[3]
-			elif '관측부장' in nouns and '연락처' in nouns:
+			elif '관측부장' in nouns and ('연락처' in nouns or '번호' in nouns):
 				text = contacts[4]
-			elif ('별방' in nouns or '동아리방' in nouns) and '연락처' in nouns:
+			elif ('별방' in nouns or '동아리방' in nouns) and ('연락처' in nouns or '번호' in nouns):
 				text = '별방 전화번호는 02-874-9374입니다.'
 
 
@@ -142,14 +145,11 @@ def message():
 			elif '날씨' in nouns:
 				if '철원' in message:
 					response = json.dumps({"message": {"text": "철원군의 날씨 예보입니다.", "photo": {"url": "http://0101010101.com:8002/_images/seeing-cherwon.png", "width": 1070, "height": 1826}}})
+					return Response(response, mimetype='application/json')
 
 			#프사 시비
 			elif '프사' in message or ('프로필' in nouns and '사진' in nouns):
 				text = '좋은 프사 좀 만들어주세요...'
-
-			#분석
-			elif '분석' in nouns:
-				text += "\n\n입력 분석 결과: " + str(morphs) + '\n' + str(nouns)
 
 			#기타
 			else:
